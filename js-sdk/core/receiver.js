@@ -41,8 +41,6 @@ let receiverManager = (function() {
 				delete events[key]
 			}
 			delete lifecycles[host]
-
-			console.log('delete')
 		}
 	}
 
@@ -86,7 +84,8 @@ let receiver = new Proxy(receiverManager, {
 			target.addEvent(key);
 			target.addLifecycle(key, value);
 		} else {
-			throw 'Must function type'
+			throw 'The property \'' + key + '\' must function type'
 		}
 	}
 });
+
