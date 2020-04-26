@@ -1,6 +1,6 @@
 ### JS-SDK 框架（JavaScript 部分）
 
->**JS-SDK 框架（Native 部分）可以帮助快速构建如下两种交互场景：**
+>**JS-SDK 框架（JavaScript 部分）可以帮助快速构建如下两种交互场景：**
 
 - 接收来自 Native 的调用 / 并 return 回 Native 调用者
 - 调用 Native 方法 / 并接收来自 Native 方法的 return 
