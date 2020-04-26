@@ -88,9 +88,8 @@ JS-SDK 框架（JavaScript 部分）对于 JavaScript 调用 Native 提供了两
 
 >**两种方式有各自的适用场景，详情请参照《[JS-SDK 框架（Native 部分）](http://note.youdao.com/noteshare?id=267a30a383d878aa0a6b020ef1219dbe)》**
 
-直接调用 Native 方法（callNative）和 通过事件调用到 Native（callEvent） 同样存在如下 4 中场景：
+直接调用 Native 方法（callNative）和 通过事件调用到 Native（callEvent） 同样存在如下 4 种场景：
 
-定义事件类型相比扩展 Bridge 更加灵活和方便管理，事件总共划分为以下四种场景：
 
 - **无参无返回值**
 - **有参无返回值** （此时通过 callNative 的方式无法获取 Native 的返回值的，callEvent 则允许）

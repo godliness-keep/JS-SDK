@@ -90,9 +90,3 @@ let receiver = new Proxy(receiverManager, {
 		}
 	}
 });
-
-window.addEventListener('beforeunload', function() {
-	window.removeEventListener('beforeunload')
-	receiverManager.removeLifecycle(document);
-});
-
