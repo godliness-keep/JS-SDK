@@ -1,5 +1,8 @@
 var lr = (function() {
 
+    const JAVASCRIPT_CALL_FINISHED = 'onJavaScriptCallFinished'
+    const CALL_NATIVE_FROM_JAVASCRIPT = 'callNativeFromJavaScript'
+
 	let RESULT_OK = 1
 
 	let jsVersion = 1
@@ -12,7 +15,6 @@ var lr = (function() {
 		if (hasParams) {
 			request = packageRequest(message)
 		}
-		let methodName = message.methodName
 
 		if (isAndroid()) {
 			sendToAndroid(mapObject, message.methodName, request)
@@ -24,7 +26,7 @@ var lr = (function() {
 	}
 
 	function callEventInternal(mapObject, message) {
-		message.methodName = 'callNativeFromJavaScript'
+		message.methodName = CALL_NATIVE_FROM_JAVASCRIPT
 		callNativeInternal(mapObject, message)
 	}
 
@@ -35,9 +37,9 @@ var lr = (function() {
 			result: message.result
 		}
 		if (isAndroid) {
-			sendToAndroid(mapObject, 'onJavaScriptCallFinished', response)
+			sendToAndroid(mapObject, JAVASCRIPT_CALL_FINISHED, response)
 		} else if (isIos) {
-			sendToiOS(mapObject, 'onJavaScriptCallFinished', response)
+			sendToiOS(mapObject, JAVASCRIPT_CALL_FINISHED, response)
 		} else {
 			alert('Unknown platform');
 		}
@@ -184,7 +186,6 @@ var lr = (function() {
 	}
 })()
 
-
 /**
  * 接收来自Native的通知, Native返回Response
  * */
@@ -196,5 +197,5 @@ function onNativeCallFinished(response) {
  * 接收来自Native的事件调用
  * */
 function callJavaScriptFromNative(request) {
-	receiverManager.dispatchReceiver(JSON.parase(request))
+	receiverManager.dispatchReceiver(JSON.parse(request))
 }
