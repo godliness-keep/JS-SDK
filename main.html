@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="main.css">
+		<script src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="js-sdk/core/wxBridge.js"></script>
+		<script type="text/javascript" src="js-sdk/utils/platform.js"></script>
+		<script type="text/javascript" src="js-sdk/core/lrBridgeCore.js"></script>
+		<script type="text/javascript" src="js-sdk/core/receiver.js"></script>
+	</head>
+	<body>
+			<button type="button" onclick="callAndroidMethod()" class="buttonT">
+				callAndroidFromH5有callback
+			</button>
+			<a href="second.html">点击调整到菜鸟教程</a>
+
+		<script>
+			lr.ready()
+
+			// var config = {
+			// 	debug: true,
+			// 	methodList: [
+			// 		'chooseImage'
+			// 	]
+			// }
+			// wx.config(config);
+
+			receiver.login = function(params) {
+				alert('来自Native的参数: ' + JSON.stringify(params))
+				
+				return {
+					state: 1,
+					desc: '这里返回说明信息',
+					result: '这里是具体的内容'
+				};
+			}
+			
+			window.addEventListener("beforeunload", function() {
+				receiverManager.removeLifecycle(document);
+				
+				console.log('在main中的 beforeunload')
+			});
+
+			//调用Native方法
+			function callAndroidMethod() {
+				receiverManager.dispatchReceiver('login')
+
+
+
+				// alert(JSON.stringify(bean))
+				// var chooseImage = {
+				// 	count: 5,
+				// 	sizeType: ['original', 'compressed'],
+				// 	sourceType: ['album', 'camera'],
+				// 	success: function(res) {
+				// 		alert(JSON.stringify(res.localIds));
+				// 	}
+				// }
+				// wx.chooseImage(chooseImage);
+
+
+				// let params = {
+				// 	link: '中国特色社会主义道路',
+				// 	age: '人民日益增长的物质文化需求同落后的生产关系之间的矛盾'
+				// }
+				// let message = {
+				// 	methodName: 'fromJavaScriptWithParamsWithReturn',
+				// 	params: params,
+				// 	success: function(res) {
+				// 		alert('来自 Native 的返回：' + JSON.stringify(res))
+				// 	},
+				// 	failed: function(res) {
+				// 		alert('来自 Native 的返回：' + JSON.stringify(res))
+				// 	}
+				// }
+				// lr.callNative(message)
+
+				// let message = {
+				// 	eventName: 'onVoiceRecordEnd',
+				// 	params: params,
+				// 	success: function(res) {
+				// 		alert('来自 Native 的返回：' + JSON.stringify(res))
+				// 	},
+				// 	failed: function(res) {
+				// 		alert('来自 Native 的返回：' + JSON.stringify(res))
+				// 	}
+				// }
+				// lr.callEvent(message)
+
+				<!--var eventMessage = {-->
+				<!--eventName:'onVoiceRecordEnd',-->
+				<!--success:function(res){-->
+				<!--alert(JSON.stringify(res))-->
+				<!--}-->
+				<!--}-->
+
+				<!--lr.callEvent(eventMessage)-->
+
+			}
+
+			function callFromNativeNoParamsNoReturn() {
+				alert('callFromNativeNoParamsNoReturn');
+			}
+
+			function callFromNativeWithParamsNoReturn(request) {
+				var jsonRequest = JSON.parse(request);
+				alert('来自Native的参数：' + JSON.stringify(jsonRequest.params));
+			}
+
+			function callFromNativeNoParamsWithReturn(request) {
+				alert('callFromNativeNoParamsWithReturn');
+			}
+
+			// 来自Native的调用，有返回值
+			function callFromNativeWithParamsWithReturn(request) {
+				var jsonRequest = JSON.parse(request);
+
+				var params = {
+					name: '苏佩',
+					age: 18,
+					sex: 'boy'
+				}
+
+				var message = {
+					id: jsonRequest.id,
+					result: {
+						state: 1,
+						desc: '不说也可以',
+						result: params
+					}
+				}
+				lr.notifyNative(message)
+			}
+		</script>
+
+	</body>
+
+</html>

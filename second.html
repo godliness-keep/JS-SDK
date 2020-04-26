@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <script type="text/javascript" src="js-sdk/core/wxBridge.js"></script>
+    <script type="text/javascript" src="js-sdk/utils/platform.js"></script>
+    <script type="text/javascript" src="js-sdk/core/lrBridgeCore.js"></script>
+    <script type="text/javascript" src="js-sdk/core/receiver.js"></script>
+</head>
+<body>
+
+<p>我是一个粉刷匠，粉刷本领强，我要把那新房子刷的又漂亮</p>
+<p>关闭当前窗口，按下 F5 或点击以下链接触发 onbeforeunload 事件。</p>
+<script>
+
+    receiver.open = function(){
+        alert('我是open，我要open')
+
+        return {
+            state:1,
+            desc:'犊子',
+            result:'扯犊子，滚犊子，王八犊子'
+        }
+    }
+
+	lr.callNative({})
+</script>
+
+</body>
+</html>
