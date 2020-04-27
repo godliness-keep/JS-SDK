@@ -36,7 +36,7 @@ var lr = (function() {
 			id: message.id,
 		}
 
-		if ('result' in message.result) {
+		if (typeof message.result === 'object' && 'result' in message.result) {
 			response.result = message.result
 		} else {
 			response.result = packageDefaultResult(message.result)
