@@ -1,7 +1,7 @@
 var lr = (function() {
 
-    const JAVASCRIPT_CALL_FINISHED = 'onJavaScriptCallFinished'
-    const CALL_NATIVE_FROM_JAVASCRIPT = 'callNativeFromJavaScript'
+	const JAVASCRIPT_CALL_FINISHED = 'onJavaScriptCallFinished'
+	const CALL_NATIVE_FROM_JAVASCRIPT = 'callNativeFromJavaScript'
 
 	let RESULT_OK = 1
 
@@ -19,7 +19,7 @@ var lr = (function() {
 		if (isAndroid()) {
 			sendToAndroid(mapObject, message.methodName, request)
 		} else if (isIos()) {
-			sendToiOS(mapObject, message.methodName, request)
+			sendToiOS(message.methodName, request)
 		} else {
 			alert('Unknown platform');
 		}
@@ -34,12 +34,18 @@ var lr = (function() {
 		let response = {
 			version: jsVersion,
 			id: message.id,
-			result: message.result
 		}
+
+		if ('result' in message.result) {
+			response.result = message.result
+		} else {
+			response.result = packageDefaultResult(message.result)
+		}
+
 		if (isAndroid) {
 			sendToAndroid(mapObject, JAVASCRIPT_CALL_FINISHED, response)
 		} else if (isIos) {
-			sendToiOS(mapObject, JAVASCRIPT_CALL_FINISHED, response)
+			sendToiOS(JAVASCRIPT_CALL_FINISHED, response)
 		} else {
 			alert('Unknown platform');
 		}
@@ -116,6 +122,14 @@ var lr = (function() {
 			} else if (typeof old === 'function') {
 				return old.apply(this, arguments);
 			}
+		}
+	}
+
+	function packageDefaultResult(result) {
+		return {
+			state: result.state == null ? 0 : result.state,
+			desc: result.desc == null ? '' : result.desc,
+			result: result
 		}
 	}
 
