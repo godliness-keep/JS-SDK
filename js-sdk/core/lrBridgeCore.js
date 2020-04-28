@@ -10,7 +10,10 @@ var lr = (function() {
 	let jsCallbackCurrentId = -1
 
 	function callNativeInternal(mapObject, message) {
-		let hasParams = (message.params != null || message.eventName != null)
+		let hasParams = (message.params != null
+				        || message.eventName != null
+				        || message.success != null
+				        || message.failed != null)
 		let request
 		if (hasParams) {
 			request = packageRequest(message)
@@ -93,7 +96,7 @@ var lr = (function() {
 		if (request != null) {
 			webkit.messageHandlers[methodName].postMessage(JSON.stringify(request));
 		} else {
-			webkit.messageHandlers[methodName].postMessage();
+			webkit.messageHandlers[methodName].postMessage(null);
 		}
 	}
 
