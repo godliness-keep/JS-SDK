@@ -45,9 +45,9 @@ var lr = (function() {
 			response.result = packageDefaultResult(message.result)
 		}
 
-		if (isAndroid) {
+		if (isAndroid()) {
 			sendToAndroid(mapObject, JAVASCRIPT_CALL_FINISHED, response)
-		} else if (isIos) {
+		} else if (isIos()) {
 			sendToiOS(JAVASCRIPT_CALL_FINISHED, response)
 		} else {
 			alert('Unknown platform');
